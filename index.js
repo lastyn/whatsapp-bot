@@ -16,8 +16,9 @@ async function startBot() {
     sock.ev.on('connection.update', (update) => {
         const { connection, lastDisconnect, qr } = update;
         if (qr) {
-            console.log('امسح رمز QR التالي برقم البوت من تطبيق الواتساب:');
-            qrcode.generate(qr, { small: true });
+            console.log('--- رابط رمز QR (افتحه في المتصفح) ---');
+            console.log(`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(qr)}`);
+            console.log('------------------------------------');
         }
         if (connection === 'close') {
             const shouldReconnect = lastDisconnect?.error?.output?.statusCode !== DisconnectReason.loggedOut;
